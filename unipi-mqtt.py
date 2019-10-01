@@ -3,7 +3,9 @@
 import json
 import logging
 import logging.handlers
+import os
 import paho.mqtt.client
+import socket
 import sys
 import time
 import traceback
@@ -63,7 +65,7 @@ if __name__ == "__main__":
     url = "ws://192.168.88.32:8080/ws"
     ws = websocket.WebSocket()
 
-    mqtt = paho.mqtt.client.Client(client_id='unipi-mqtt-gateway')
+    mqtt = paho.mqtt.client.Client(client_id='unipi-mqtt-gateway[%s/%d]' % (socket.gethostname(), os.getpid()))
     mqtt.on_connect = on_mqtt_connect
     mqtt.on_disconnect = on_mqtt_disconnect
     #mqtt.on_log = on_log
